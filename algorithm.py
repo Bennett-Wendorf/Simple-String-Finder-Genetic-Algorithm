@@ -94,16 +94,16 @@ def Generation(population, answer, mutationRate, GRADED_RETAIN_PERCENT, NONGRADE
 
     return returnPop
 
-def Algorithm(popSize, chromSize, mutationRate=100, GRADED_RETAIN_PERCENT = .3, NONGRADED_RETAIN_PERCENT = .2, mutationAmount = 1):
+def Algorithm(pop_size, chrom_size, MUTATION_RATE=100, GRADED_RETAIN_PERCENT = .3, NONGRADED_RETAIN_PERCENT = .2, MUTATION_AMOUNT = 1):
     file = open("Output Data/StringGenAlg.txt", "a")
-    answer = Answer(chromSize)
-    population = Population.genRandom(popSize, chromSize, answer.alphabet)
+    answer = Answer(chrom_size)
+    population = Population.genRandom(pop_size, chrom_size, answer.alphabet)
     answers = []
     count = 0
 
     while not answers:
                
-        population = Generation(population, answer, mutationRate, GRADED_RETAIN_PERCENT, NONGRADED_RETAIN_PERCENT, mutationAmount)
+        population = Generation(population, answer, MUTATION_AMOUNT, GRADED_RETAIN_PERCENT, NONGRADED_RETAIN_PERCENT, MUTATION_AMOUNT)
 
         print("Mean score = ", GetMeanScore(population, answer), file=sys.stderr)
         print("Count = ", count)
@@ -115,11 +115,11 @@ def Algorithm(popSize, chromSize, mutationRate=100, GRADED_RETAIN_PERCENT = .3, 
         count += 1
 
     print(answers[0].GetValue())
-    file.write(str(count) + "   Parameters were: popSize = " + str(popSize) + ", chromSize = " + str(chromSize) + ", mutationRate = " + str(mutationRate) + ", GRADED_RETAIN_PERCENT = " + str(GRADED_RETAIN_PERCENT) + ", NONGRADED_RETAIN_PERCENT = " + str(NONGRADED_RETAIN_PERCENT) + ", mutationAmount = " + str(mutationAmount) + "\n")
+    file.write(str(count) + "   Parameters were: pop_size = " + str(pop_size) + ", chrom_size = " + str(chrom_size) + ", MUTATION_RATE = " + str(MUTATION_RATE) + ", GRADED_RETAIN_PERCENT = " + str(GRADED_RETAIN_PERCENT) + ", NONGRADED_RETAIN_PERCENT = " + str(NONGRADED_RETAIN_PERCENT) + ", MUTATION_AMOUNT = " + str(MUTATION_AMOUNT) + "\n")
     file.close()
     print("The algorithm took ", count, " generations to find the answer.")
-    print("Parameters were: popSize = ", popSize, ", chromSize = ", chromSize, ", mutationRate = ", mutationRate, ", GRADED_RETAIN_PERCENT = ", GRADED_RETAIN_PERCENT, ", NONGRADED_RETAIN_PERCENT = ", NONGRADED_RETAIN_PERCENT, ", mutationAmount = ", mutationAmount)
+    print("Parameters were: pop_size = ", pop_size, ", chrom_size = ", chrom_size, ", MUTATION_RATE = ", MUTATION_RATE, ", GRADED_RETAIN_PERCENT = ", GRADED_RETAIN_PERCENT, ", NONGRADED_RETAIN_PERCENT = ", NONGRADED_RETAIN_PERCENT, ", MUTATION_AMOUNT = ", MUTATION_AMOUNT)
 
-def RunMultiple(popSize, chromSize, times, mutationRate=100, GRADED_RETAIN_PERCENT = .3, NONGRADED_RETAIN_PERCENT = .2, mutationAmount = 1):
+def Run_Multiple(times, pop_size, chrom_size, MUTATION_RATE=100, GRADED_RETAIN_PERCENT = .3, NONGRADED_RETAIN_PERCENT = .2, MUTATION_AMOUNT = 1):
     for i in range(times):
-        Algorithm(popSize, chromSize, mutationRate, GRADED_RETAIN_PERCENT, NONGRADED_RETAIN_PERCENT, mutationAmount)
+        Algorithm(pop_size, chrom_size, MUTATION_RATE, GRADED_RETAIN_PERCENT, NONGRADED_RETAIN_PERCENT, MUTATION_AMOUNT)
