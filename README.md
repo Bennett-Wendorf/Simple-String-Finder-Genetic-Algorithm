@@ -1,6 +1,9 @@
 # Simple String Finder Genetic Algorithm
 This is a simple genetic algorithm that finds a randomly generated string.
 
+#### Quick Note Before We Start
+Please not that this repository is NOT designed to be a tutorial of any kind. Despite my efforts to make it easy to use, it does require a basic knowledge of how a genetic algorithm works to use this code.
+
 ## Getting Started
 1. Open the Algorithm.py file in your favorite python IDE
 2. Run the module
