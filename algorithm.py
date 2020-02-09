@@ -5,121 +5,121 @@ import random
 import sys
 
 def Score(chrom, answer):
-    key = answer.GetValue()
+    key = answer.Get_Value()
     score = 0
-    chromVal = chrom.GetValue()
-    for i in range(len(chromVal)):
-        if(chromVal[i] == key[i]):
+    chrom_val = chrom.Get_Value()
+    for i in range(len(chrom_val)):
+        if(chrom_val[i] == key[i]):
             score += 1
     score /= len(key)
     return score
 
-def GetMeanScore(population, answer):
-    individuals = population.GetIndividuals()
+def Get_Mean_Score(population, answer):
+    individuals = population.Get_Individuals()
     total = 0
     for element in individuals:
         total += Score(element, answer)
     return total/len(individuals)
 
-def SortSecond(val):
+def Sort_Second(val):
     return val[1]
 
-def Selection(population, answer, GRADED_RETAIN_PERCENT, NONGRADED_RETAIN_PERCENT):
-    listToReturn = []
+def Selection(population, answer, graded_retain_percent, nongraded_retain_percent):
+    list_to_return = []
     chroms = []
-    pickedChroms = []
-    for chrom in population.GetIndividuals():
+    picked_chroms = []
+    for chrom in population.Get_Individuals():
         chroms.append([chrom, Score(chrom, answer)])
 
-    chroms.sort(key = SortSecond, reverse = True)
-    fitNumToRetain = len(population.GetIndividuals())*GRADED_RETAIN_PERCENT
-    fitNumToRetain = round(fitNumToRetain)
-    randomRetain = len(population.GetIndividuals())*NONGRADED_RETAIN_PERCENT
-    randomRetain = round(randomRetain)
+    chroms.sort(key = Sort_Second, reverse = True)
+    fit_num_to_retain = len(population.Get_Individuals())*graded_retain_percent
+    fit_num_to_retain = round(fit_num_to_retain)
+    random_retain = len(population.Get_Individuals())*nongraded_retain_percent
+    random_retain = round(random_retain)
     
-    for i in range(fitNumToRetain):
-        pickedChroms.append(chroms.pop(0))
+    for i in range(fit_num_to_retain):
+        picked_chroms.append(chroms.pop(0))
 
-    for i in range(randomRetain):
+    for i in range(random_retain):
         index = random.randrange(len(chroms))
-        pickedChroms.append(chroms.pop(index))
+        picked_chroms.append(chroms.pop(index))
 
-    for element in pickedChroms:
-        listToReturn.append(element[0])
+    for element in picked_chroms:
+        list_to_return.append(element[0])
 
-    newPopulation = Population(listToReturn)
+    new_population = Population(list_to_return)
     
-    return newPopulation
+    return new_population
 
-def Crossover(parent1, parent2):
-    halfParent1 = parent1.GetValue()[:int(len(parent1.GetValue())/2)]
-    halfParent2 = parent2.GetValue()[int(len(parent2.GetValue())/2):]
+def Crossover(parent_1, parent_2):
+    half_parent_1 = parent_1.Get_Value()[:int(len(parent_1.Get_Value())/2)]
+    half_parent_2 = parent_2.Get_Value()[int(len(parent_2.Get_Value())/2):]
 
-    childString = halfParent1 + halfParent2
+    child_string = half_parent_1 + half_parent_2
 
-    child = Chromosome(childString)
+    child = Chromosome(child_string)
 
     return child
 
-def Mutation(chrom, alphabet, mutationAmount):
-    for i in range(mutationAmount):
-        charToReplace = random.choice(chrom.GetValue())
-        newChar = random.choice(alphabet)
+def Mutation(chrom, alphabet, mutation_amount):
+    for i in range(mutation_amount):
+        char_to_replace = random.choice(chrom.Get_Value())
+        new_char = random.choice(alphabet)
 
-        chrom = Chromosome(chrom.GetValue().replace(charToReplace, newChar, 1))
+        chrom = Chromosome(chrom.Get_Value().replace(char_to_replace, new_char, 1))
 
     return chrom
 
-def Generation(population, answer, mutationRate, GRADED_RETAIN_PERCENT, NONGRADED_RETAIN_PERCENT, mutationAmount):
-    select = Selection(population, answer, GRADED_RETAIN_PERCENT, NONGRADED_RETAIN_PERCENT)
+def Generation(population, answer, mutation_rate, graded_retain_percent, nongraded_retain_percent, mutation_amount):
+    select = Selection(population, answer, graded_retain_percent, nongraded_retain_percent)
 
     children = []
-    popIndividuals = population.GetIndividuals()
+    pop_individuals = population.Get_Individuals()
     
-    while len(children) < len(popIndividuals)-len(select.GetIndividuals()):
-        parent1 = random.choice(popIndividuals)
-        parent2 = random.choice(popIndividuals)
+    while len(children) < len(pop_individuals)-len(select.Get_Individuals()):
+        parent_1 = random.choice(pop_individuals)
+        parent_2 = random.choice(pop_individuals)
 
-        child = Crossover(parent1, parent2)
+        child = Crossover(parent_1, parent_2)
 
-        if((random.randrange(100) + 1) <= mutationRate):
-            child = Mutation(child, answer.alphabet, mutationAmount)
+        if((random.randrange(100) + 1) <= mutation_rate):
+            child = Mutation(child, answer.alphabet, mutation_amount)
             #print("Mutated")
                              
         children.append(child)
 
-    returnList = select.GetIndividuals() + children
+    return_list = select.Get_Individuals() + children
 
-    returnPop = Population(returnList)
+    return_pop = Population(return_list)
 
-    return returnPop
+    return return_pop
 
-def Algorithm(pop_size, chrom_size, MUTATION_RATE=100, GRADED_RETAIN_PERCENT = .3, NONGRADED_RETAIN_PERCENT = .2, MUTATION_AMOUNT = 1):
+def Algorithm(pop_size, chrom_size, mutation_rate=100, graded_retain_percent = .3, nongraded_retain_percent = .2, mutation_amount = 1):
     file = open("Output Data/StringGenAlg.txt", "a")
     answer = Answer(chrom_size)
-    population = Population.genRandom(pop_size, chrom_size, answer.alphabet)
+    population = Population.Gen_Random(pop_size, chrom_size, answer.alphabet)
     answers = []
     count = 0
 
     while not answers:
                
-        population = Generation(population, answer, MUTATION_RATE, GRADED_RETAIN_PERCENT, NONGRADED_RETAIN_PERCENT, MUTATION_AMOUNT)
+        population = Generation(population, answer, mutation_rate, graded_retain_percent, nongraded_retain_percent, mutation_amount)
 
-        print("Mean score = ", GetMeanScore(population, answer), file=sys.stderr)
+        print("Mean score = ", Get_Mean_Score(population, answer), file=sys.stderr)
         print("Count = ", count)
 
-        for chrom in population.GetIndividuals():
-            if answer.IsAnswer(chrom.GetValue()):
+        for chrom in population.Get_Individuals():
+            if answer.Is_Answer(chrom.Get_Value()):
                 answers.append(chrom)
                 
         count += 1
 
-    print(answers[0].GetValue())
-    file.write(str(count) + "   Parameters were: pop_size = " + str(pop_size) + ", chrom_size = " + str(chrom_size) + ", MUTATION_RATE = " + str(MUTATION_RATE) + ", GRADED_RETAIN_PERCENT = " + str(GRADED_RETAIN_PERCENT) + ", NONGRADED_RETAIN_PERCENT = " + str(NONGRADED_RETAIN_PERCENT) + ", MUTATION_AMOUNT = " + str(MUTATION_AMOUNT) + "\n")
+    print(answers[0].Get_Value())
+    file.write(str(count) + "   Parameters were: pop_size = " + str(pop_size) + ", chrom_size = " + str(chrom_size) + ", mutation_rate = " + str(mutation_rate) + ", graded_retain_percent = " + str(graded_retain_percent) + ", nongraded_retain_percent = " + str(nongraded_retain_percent) + ", mutation_amount = " + str(mutation_amount) + "\n")
     file.close()
     print("The algorithm took ", count, " generations to find the answer.")
-    print("Parameters were: pop_size = ", pop_size, ", chrom_size = ", chrom_size, ", MUTATION_RATE = ", MUTATION_RATE, ", GRADED_RETAIN_PERCENT = ", GRADED_RETAIN_PERCENT, ", NONGRADED_RETAIN_PERCENT = ", NONGRADED_RETAIN_PERCENT, ", MUTATION_AMOUNT = ", MUTATION_AMOUNT)
+    print("Parameters were: pop_size = ", pop_size, ", chrom_size = ", chrom_size, ", mutation_rate = ", mutation_rate, ", graded_retain_percent = ", graded_retain_percent, ", nongraded_retain_percent = ", nongraded_retain_percent, ", mutation_amount = ", mutation_amount)
 
-def Run_Multiple(times, pop_size, chrom_size, MUTATION_RATE=100, GRADED_RETAIN_PERCENT = .3, NONGRADED_RETAIN_PERCENT = .2, MUTATION_AMOUNT = 1):
+def Run_Multiple(times, pop_size, chrom_size, mutation_rate=100, graded_retain_percent = .3, nongraded_retain_percent = .2, mutation_amount = 1):
     for i in range(times):
-        Algorithm(pop_size, chrom_size, MUTATION_RATE, GRADED_RETAIN_PERCENT, NONGRADED_RETAIN_PERCENT, MUTATION_AMOUNT)
+        Algorithm(pop_size, chrom_size, mutation_rate, graded_retain_percent, nongraded_retain_percent, mutation_amount)

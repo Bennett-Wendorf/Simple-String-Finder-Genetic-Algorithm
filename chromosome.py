@@ -1,15 +1,15 @@
 import random
 class Chromosome:
-    def __init__(self, chromString):
-        self.value = chromString
+    def __init__(self, chrom_string):
+        self.value = chrom_string
 
     @classmethod
-    def genRandom(cls, length, alphabet):
+    def Gen_Random(cls, length, alphabet):
         value = ""
         for i in range(length):
             value += random.choice(alphabet)
         chrom = cls(value)
         return chrom
 
-    def GetValue(self):
+    def Get_Value(self):
         return self.value

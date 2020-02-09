@@ -1,16 +1,16 @@
 from chromosome import Chromosome
 class Population:
-    def __init__(self, chromList):
+    def __init__(self, chrom_list):
         self.individuals = []
-        self.individuals.extend(chromList)
+        self.individuals.extend(chrom_list)
 
     @classmethod
-    def genRandom(cls, popSize, chromSize, alphabet):
-        newList = []
-        for i in range(popSize):
-            newList.append(Chromosome.genRandom(chromSize, alphabet))
-        newPop = cls(newList)
-        return newPop
+    def Gen_Random(cls, pop_size, chrom_size, alphabet):
+        new_list = []
+        for i in range(pop_size):
+            new_list.append(Chromosome.Gen_Random(chrom_size, alphabet))
+        new_pop = cls(new_list)
+        return new_pop
         
-    def GetIndividuals(self):
+    def Get_Individuals(self):
         return self.individuals

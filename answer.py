@@ -6,8 +6,8 @@ class Answer:
         self.value = ""
         for i in range(length):
             self.value += random.choice(self.alphabet)
-    def IsAnswer(self, comparison):
+    def Is_Answer(self, comparison):
         return comparison == self.value
-    def GetValue(self):
+    def Get_Value(self):
         return self.value
     
