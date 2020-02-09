@@ -103,7 +103,7 @@ def Algorithm(pop_size, chrom_size, MUTATION_RATE=100, GRADED_RETAIN_PERCENT = .
 
     while not answers:
                
-        population = Generation(population, answer, MUTATION_AMOUNT, GRADED_RETAIN_PERCENT, NONGRADED_RETAIN_PERCENT, MUTATION_AMOUNT)
+        population = Generation(population, answer, MUTATION_RATE, GRADED_RETAIN_PERCENT, NONGRADED_RETAIN_PERCENT, MUTATION_AMOUNT)
 
         print("Mean score = ", GetMeanScore(population, answer), file=sys.stderr)
         print("Count = ", count)
