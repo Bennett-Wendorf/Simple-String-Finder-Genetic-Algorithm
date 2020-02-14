@@ -12,7 +12,7 @@ a basic knowledge of how a genetic algorithm works to use this code.
 
 #### A Note On Variable Naming
 Variable names adhere to common python practices of separating words by underscores. Method names start each word with a capital letter with 
-the rest lower case and words are separated by underscores. Variable names are all lower case and words ar separated by underscores.
+the rest lower case and words are separated by underscores. Variable names are all lower case and words are separated by underscores.
 
 ## Algorithm()
 The algorithm function has 2 required parameters and 4 additional optional parameters.
