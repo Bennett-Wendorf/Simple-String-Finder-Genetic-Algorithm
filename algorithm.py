@@ -94,7 +94,7 @@ def Generation(population, answer, mutation_rate, graded_retain_percent, nongrad
 
     return return_pop
 
-def Algorithm(pop_size, chrom_size, mutation_rate=100, graded_retain_percent = .3, nongraded_retain_percent = .2, mutation_amount = 1):
+def Algorithm(pop_size, chrom_size, mutation_rate=75, graded_retain_percent = .3, nongraded_retain_percent = .2, mutation_amount = 1):
     file = open("Output Data/StringGenAlg.txt", "a")
     answer = Answer(chrom_size)
     population = Population.Gen_Random(pop_size, chrom_size, answer.alphabet)
@@ -123,3 +123,7 @@ def Algorithm(pop_size, chrom_size, mutation_rate=100, graded_retain_percent = .
 def Run_Multiple(times, pop_size, chrom_size, mutation_rate=100, graded_retain_percent = .3, nongraded_retain_percent = .2, mutation_amount = 1):
     for i in range(times):
         Algorithm(pop_size, chrom_size, mutation_rate, graded_retain_percent, nongraded_retain_percent, mutation_amount)
+
+if __name__ == "__main__":
+    print(str(sys.argv))
+    Algorithm(int(sys.argv[1]), int(sys.argv[2]))

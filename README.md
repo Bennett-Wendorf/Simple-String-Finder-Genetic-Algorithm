@@ -6,9 +6,11 @@ Please not that this repository is NOT designed to be a tutorial of any kind. De
 a basic knowledge of how a genetic algorithm works to use this code.
 
 ## Getting Started
-1. Open the Algorithm.py file in your favorite python IDE
-2. Run the module
-3. In the interpreter where the module was just run, use the Algorithm() function to run the genetic algorithm
+1. Run the algorithm.py script from the command line.
+2. The parameters needed are population size and chromosome size.
+Ex: python algorithm.py 10 15
+
+Alternatively, you can run the algorithm.py script as a module with the built in IDLE interpreter and run either the Algorithm() method or the Run_Multiple() method.
 
 #### A Note On Variable Naming
 Variable names adhere to common python practices of separating words by underscores. Method names start each word with a capital letter with 
